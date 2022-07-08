@@ -1,0 +1,19 @@
+Options -Indexes
+
+RewriteEngine on
+RewriteBase / 
+
+RewriteRule ^account$ control.php [L,NC]
+RewriteRule ^home$ index.php [L,NC]
+
+RewriteRule ^login$ login.php [L,NC]
+RewriteRule ^logout$ logout.php [L,NC]
+RewriteRule ^reset$ reset.php [L,NC]
+
+RewriteRule ^purchase$ purchase.php [L,NC]
+RewriteRule ^tos$ terms.php [L,NC]
+
+RewriteRule ^moderation$ admin.php [L,NC]
+
+RewriteRule ^email$ /backend/email.php [L,NC]
+RewriteRule ^resend$ /backend/resend.php [L,NC]
