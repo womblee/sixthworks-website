@@ -14,7 +14,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="css/main.css">
-
+  
   <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -89,7 +89,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
 
 <!-- Centered div -->
 <div class="align-items-center">
-  <div class="container">
+  <div class="container pb-3">
     <img class="img-fluid mb-3" style="width:100%;min-height:100px;" src="media/sixthworks_bay.png">
 
     <blockquote class="blockquote">
@@ -101,6 +101,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
     </blockquote>
 
     <p>All our cheats is your go-to solution for professional cheating and messing in games. Since 2021 sixthworks has been developing a  stable service to meet needs for hacking in this game. It was a non-profit project made for fun, but expenses need to be covered. We might sell more cheats in the future (we have our infrastructure prepared for this). Sixthworks allows registration and usage using Tor and other privacy services (proxies, VPNs), you don't need an email to register. It is certain to stay forever until something bad happens, which is very unlikely.</p>
+
+    <!-- Separator -->
+    <hr>
 
     <?php
     foreach (array_keys($MENU_DATA['games']) as $GAME)
@@ -167,7 +170,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
     <!-- Monero image -->
     <img class="mb-3" src="media/monero.svg">
 
-    <h4>Description.</h4>
+    <h4>Buying with monero.</h4>
     <p>Purchasing with <a href="https://en.wikipedia.org/wiki/Monero">monero</a> makes you avoid many reseller difficulties to go through, the purchase is automated and has no humans behind it. You will avoid human interaction or wasting useless time on talking with a person. When buying officially from us, many positive <a href="/tos">terms</a> apply and you can refund.</p>
 
     <?php
@@ -241,14 +244,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
     <?php
     }
     ?>
-
-    <!-- Separator -->
-    <hr>
-
-    <h2>For resellers</h2>
-    <p>To buy our products for reselling, contact the service administration. Purchasing in bulk is accepted only, while the minimum amount is 5 keys, and the maximum is 1000 keys. Key price is not listed on this page, therefore you need to ask the service administration about it, contacts are listed below.<br><a href="https://t.me/aaathats3aaas">Telegram</a></p>
-    
-    <p>Contact only if you are sure that you are going to purchase from us, since we do not want any silly question things going on. That will make things better for you, and for us.
   </div>
 </div>
 

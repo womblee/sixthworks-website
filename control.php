@@ -73,7 +73,7 @@ if ($ALLOW)
   <a class="btn btn-outline-success" href="/logout">Sign out</a>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid pb-3">
   <h2>Dashboard</h2>
 
   <br>
@@ -140,7 +140,7 @@ if ($ALLOW)
           {
             ?>
 
-            <div class="alert alert-info" role="alert">
+            <div class="alert alert-danger" role="alert">
               There is <strong>nothing left</strong> to redeem.
             </div>
 
@@ -273,7 +273,7 @@ if ($ALLOW)
             }
 
             // Footer
-            $STR = "<p class='card-text'>$VERSION</p>";
+            $STR = "<p class='card-text text-secondary'>$VERSION</p>";
 
             echo $STR;
 
@@ -299,8 +299,8 @@ if ($ALLOW)
       <h3 class="mb-3">Password change</h3>
 
       <form class="form-basic" action="backend/change.php" method="post">
-        <label for="input_password" class="sr-only">Password</label>
-        <input name="password" type="password" id="input_password" class="form-control mb-2" placeholder="Password" required autofocus>
+        <label for="input_password" class="sr-only">Current password</label>
+        <input name="password" type="password" id="input_password" class="form-control mb-2" placeholder="Current password" required autofocus>
 
         <label for="input_new_password" class="sr-only">New password</label>
         <input name="new" type="password" id="input_new_password" class="form-control mb-2" placeholder="New password" required>
@@ -317,10 +317,13 @@ if ($ALLOW)
 
       foreach (array_keys($MENU_DATA['games']) as $GAME)
       {
+        // Container start
+        echo "<div>";
+
         // Header
         $NAME = $MENU_DATA['games'][$GAME]['full_name'];
 
-        echo "<h3 class='mb-3'>$NAME</h3>";
+        echo "<h3>$NAME</h3>";
 
         // Validate
         if (array_key_exists($GAME, $CHANGELOG_DATA))
@@ -335,7 +338,7 @@ if ($ALLOW)
 
             // Date
             $CLASS = new DateTime("@$DATE");
-            $FORMATTED = $CLASS->format('Y-m-d H:i:s');
+            $FORMATTED = $CLASS->format('d.m.Y');
   
             // Decide whether to use collapsible or not
             $COLLAPSIBLE = $r_i != 0;
@@ -351,7 +354,7 @@ if ($ALLOW)
             }
             else
             {
-              echo "<h5>$FORMATTED</h5>";
+              echo "<h5 class='mb-2'>$FORMATTED</h5>";
             }
             
             // Changes
@@ -363,7 +366,7 @@ if ($ALLOW)
               echo "<div class='card card-body'>";
             }
 
-            // Abort if no changes
+            // Info
             if (count($CHANGES) >= 1)
             {
               echo "<ul style='padding-left: 15px; margin-bottom: unset;'>";
@@ -397,6 +400,9 @@ if ($ALLOW)
         {
           echo "<p>No release notes available</p>"; 
         }
+        
+        // Container end
+        echo "<div>";
 
         $i++;
       }

@@ -85,8 +85,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
   ?>
 </div>
 
-<div class="container">
-    <div class="py-2 mb-2 text-left">
+<div class="container pb-2">
+    <div class="text-left">
         <h3>Usage Policy</h3>
         <ul>
             <li>
