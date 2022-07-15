@@ -140,7 +140,7 @@ if ($ALLOW)
           {
             ?>
 
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-dark" role="alert">
               There is <strong>nothing left</strong> to redeem.
             </div>
 
@@ -165,13 +165,14 @@ if ($ALLOW)
     </div>
 
     <div id="hwid" class="container-fluid tab-pane fade"><br>
-      <h3>Reset</h3>
+      <h3 class="mb-2">Reset</h3>
+
       <?php
       if ($ACCOUNT_MANAGER->has_hwid_cooldown($ROW))
       {
         ?>
 
-        <button type="button" class="btn btn-default btn-lg mb-3" disabled="disabled">
+        <button type="button" class="btn btn-outline-primary btn-lg mb-3" disabled="disabled">
           Reset HWID
         </button>
 
@@ -182,7 +183,7 @@ if ($ALLOW)
       ?>
       
       <form class="form-basic" action="backend/hwid.php?hwid=null" method="post">
-        <button type="submit" class="btn btn-default btn-lg mb-3">
+        <button type="submit" class="btn btn-outline-primary btn-lg mb-3">
           Reset HWID
         </button>
       </form>
@@ -252,7 +253,7 @@ if ($ALLOW)
             echo "<div class='card' style='max-width: 400px'>";
             
             // Body
-            echo "<div class='card-body'>";
+            echo "<div class='card-body' style='padding-left: 15px'>";
             
             // Title
             $STR = "<h5 class='card-title'>" . $MENU_DATA['games'][$GAME]['full_name'] . "</h5>";
@@ -273,7 +274,7 @@ if ($ALLOW)
             }
 
             // Footer
-            $STR = "<p class='card-text text-secondary'>$VERSION</p>";
+            $STR = "<p class='card-text text-success'>$VERSION</p>";
 
             echo $STR;
 
@@ -305,9 +306,9 @@ if ($ALLOW)
         <label for="input_new_password" class="sr-only">New password</label>
         <input name="new" type="password" id="input_new_password" class="form-control mb-2" placeholder="New password" required>
 
-        <div class="g-recaptcha mb-3" data-sitekey="6Lfkh34eAAAAAI3fSfOaVIkZTFM0VChDaP-qfo7c"></div>
+        <div class="g-recaptcha mt-3 mb-3" data-sitekey="6Lfkh34eAAAAAI3fSfOaVIkZTFM0VChDaP-qfo7c"></div>
 
-        <button class="btn btn-default btn-lg mb-3" type="submit">Change</button>
+        <button class="btn btn-outline-primary btn-lg mb-3" type="submit">Change</button>
       </form>
     </div>
 
@@ -323,7 +324,7 @@ if ($ALLOW)
         // Header
         $NAME = $MENU_DATA['games'][$GAME]['full_name'];
 
-        echo "<h3>$NAME</h3>";
+        echo "<h3 class='text-light'>$NAME</h3>";
 
         // Validate
         if (array_key_exists($GAME, $CHANGELOG_DATA))
@@ -350,7 +351,7 @@ if ($ALLOW)
                 echo "<h5>History</h5>";
               }
 
-              echo "<button class='btn btn-default mb-2' type='button' data-toggle='collapse' data-target='#collapse_$r_i' aria-expanded='false' aria-controls='collapse_$r_i'>Notes $FORMATTED</button>";
+              echo "<button class='btn btn-outline-secondary mb-2' type='button' data-toggle='collapse' data-target='#collapse_$r_i' aria-expanded='false' aria-controls='collapse_$r_i'>Notes $FORMATTED</button>";
             }
             else
             {
@@ -444,8 +445,8 @@ else
   <form class="form-signin" action="/login" method="post">
     <h1 class="h3 mb-3 font-weight-normal">Login</h1>
 
-    <label for="input_login" class="sr-only">Username or email</label>
-    <input name="login" type="login" id="input_login" class="form-control mb-2" placeholder="Username or email" required autofocus>
+    <label for="input_login" class="sr-only">Username / Email</label>
+    <input name="login" type="login" id="input_login" class="form-control mb-2" placeholder="Username / Email" required autofocus>
 
     <label for="input_password" class="sr-only">Password</label>
     <input name="password" type="password" id="input_password" class="form-control mb-2" placeholder="Password" aria-labelledby="forgot" required>
@@ -456,7 +457,7 @@ else
     
     <p>Not a member? <a href="?register">Sign up</a>.</p>
 
-    <button class="btn btn-default btn-lg mb-3" type="submit">Login</button>
+    <button class="btn btn-outline-primary btn-lg mb-3" type="submit">Login</button>
   </form>
 </div>
 
@@ -488,7 +489,7 @@ else
 
     <p>Already have an account? Sign in <a href="/account">here</a>.</p>
 
-    <button class="btn btn-default btn-lg mb-3" type="submit">Register</button>
+    <button class="btn btn-outline-primary btn-lg mb-3" type="submit">Register</button>
   </form>
 </div>
 

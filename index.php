@@ -165,7 +165,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
       ?>
     </div>
 
-    <h3 class="mt-3 mb-4">Frequently asked questions</h3>
+    <h3 class="mt-3 mb-3">Frequently asked questions</h3>
     <ul style='padding-left: 15px'>
       <li>
         <b>Q: What features are included? Does it have this and that?</b>
