@@ -92,7 +92,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
     <img class="img-fluid mb-3" style="width:100%;min-height:100px;" src="media/sixthworks_large.png">
 
     <h3 class="display-5"><strong>Instant access</strong> to our premium cheats starting at <strong>$20 USD</strong>. Pay once, keep forever.</p>
-    <a class="btn btn-success btn-lg mb-4" href="/purchase">
+    <a class="btn btn-outline-success btn-lg mb-4" href="/purchase">
       Buy now
     </a>
 
