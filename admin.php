@@ -13,7 +13,7 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 
   <!-- CSS -->
-  <link rel="stylesheet" type="text/css" href="css/moderation.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
 
   <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
@@ -199,7 +199,7 @@ if (empty($ADMIN) == true || $ADMIN == 0)
             $GAMES = $ROW['games'];
     
             // Form begin
-            echo "<form class='data-control' method='post'>";
+            echo "<form class='form-basic' method='post'>";
 
             // Games input
             echo "<label for='games' class='sr-only'>User games</label>";

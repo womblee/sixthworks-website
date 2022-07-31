@@ -351,7 +351,7 @@ if ($ALLOW)
             $FORMATTED = $CLASS->format('d.m.Y');
   
             // Decide whether to use collapsible or not
-            $COLLAPSIBLE = $r_i > 1;
+            $COLLAPSIBLE = $r_i > 1 && count($CHANGELOG_DATA) > 1;
             
             if ($COLLAPSIBLE)
             {
