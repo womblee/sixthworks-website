@@ -5,7 +5,7 @@ require(dirname(__DIR__) . "/mailer/SMTP.php");
 require(dirname(__DIR__) . "/mailer/Exception.php");
 
 // SMTP Config
-require(dirname(__DIR__) . "/smtp_data.php");
+require(dirname(__DIR__) . "/mail_data.php");
 
 // Use
 use PHPMailer\PHPMailer\PHPMailer;

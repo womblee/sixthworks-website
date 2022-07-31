@@ -135,44 +135,46 @@ if ($ALLOW)
           </select>
         </div> 
 
+        <div class="g-recaptcha mb-2" data-sitekey="6Lfkh34eAAAAAI3fSfOaVIkZTFM0VChDaP-qfo7c"></div>
+
+        <p>Read our terms of service on <a href="/tos">this page</a>.</p>
+
         <?php
-          if ($i == 0)
-          {
-            ?>
 
-            <div class="alert alert-dark" role="alert">
-              There is <strong>nothing left</strong> to redeem.
-            </div>
+        if ($i > 0)
+        {
+          ?>
 
-            <?php
-          }
-          else
-          {
-            ?>
-            
-            <div class="g-recaptcha mb-2" data-sitekey="6Lfkh34eAAAAAI3fSfOaVIkZTFM0VChDaP-qfo7c"></div>
+          <button class="btn btn-dark btn-lg mb-3" type="submit">
+            Redeem
+          </button>
 
-            <p>Before activating any of our products, please read our terms of service on <a href="/tos">this page</a>.</p>
+          <?php
+        }
+        else
+        {
+          ?>
 
-            <button class="btn btn-default btn-lg mb-3" type="submit">
-              Redeem
-            </button>
+          <button class="btn btn-dark btn-lg mb-3" type="submit" disabled="disabled">
+            Redeem
+          </button>
 
-            <?php
-          }
+          <?php
+        }
+
         ?>
       </form>
     </div>
 
     <div id="hwid" class="container-fluid tab-pane fade"><br>
-      <h3 class="mb-2">Reset</h3>
+      <h3 class="mb-2">Actions</h3>
 
       <?php
       if ($ACCOUNT_MANAGER->has_hwid_cooldown($ROW))
       {
         ?>
 
-        <button type="button" class="btn btn-outline-primary btn-lg mb-3" disabled="disabled">
+        <button type="button" class="btn btn-dark btn-lg mb-3" disabled="disabled">
           Reset HWID
         </button>
 
@@ -183,7 +185,7 @@ if ($ALLOW)
       ?>
       
       <form class="form-basic" action="backend/hwid.php?hwid=null" method="post">
-        <button type="submit" class="btn btn-outline-primary btn-lg mb-3">
+        <button type="submit" class="btn btn-dark btn-lg mb-3">
           Reset HWID
         </button>
       </form>
@@ -223,7 +225,7 @@ if ($ALLOW)
       }
       else
       {
-        echo '<p>None</p>';
+        echo "<p>None</p>";
       }
       
       ?>
@@ -308,7 +310,7 @@ if ($ALLOW)
 
         <div class="g-recaptcha mt-3 mb-3" data-sitekey="6Lfkh34eAAAAAI3fSfOaVIkZTFM0VChDaP-qfo7c"></div>
 
-        <button class="btn btn-outline-primary btn-lg mb-3" type="submit">Change</button>
+        <button class="btn btn-dark btn-lg mb-3" type="submit">Change</button>
       </form>
     </div>
 
@@ -329,6 +331,13 @@ if ($ALLOW)
         // Validate
         if (array_key_exists($GAME, $CHANGELOG_DATA))
         {
+          // History
+          $PRESENT = false;
+          
+          // Collapsed
+          $COLLAPSED = false;
+          
+          // Iterations
           $r_i = 0;
 
           // Ton of text
@@ -342,16 +351,18 @@ if ($ALLOW)
             $FORMATTED = $CLASS->format('d.m.Y');
   
             // Decide whether to use collapsible or not
-            $COLLAPSIBLE = $r_i != 0;
+            $COLLAPSIBLE = $r_i > 1;
             
             if ($COLLAPSIBLE)
             {
-              if ($r_i == 1)
+              if ($r_i > 1 && $PRESENT == false)
               {
-                echo "<h5>History</h5>";
+                echo "<h5 class='mb-3'>Previous release notes</h5>";
+
+                $PRESENT = true;
               }
 
-              echo "<button class='btn btn-outline-secondary mb-2' type='button' data-toggle='collapse' data-target='#collapse_$r_i' aria-expanded='false' aria-controls='collapse_$r_i'>Notes $FORMATTED</button>";
+              echo "<button class='btn btn-dark mb-2' type='button' data-toggle='collapse' data-target='#collapse_$r_i' aria-expanded='false' aria-controls='collapse_$r_i'>Notes $FORMATTED</button>";
             }
             else
             {

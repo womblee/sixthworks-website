@@ -100,7 +100,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
       </figcaption>
     </blockquote>
 
-    <p>All our cheats is your go-to solution for professional cheating and messing in games. Since 2021 sixthworks has been developing a  stable service to meet needs for hacking in this game. It was a non-profit project made for fun, but expenses need to be covered. We might sell more cheats in the future (we have our infrastructure prepared for this). Sixthworks allows registration and usage using Tor and other privacy services (proxies, VPNs), you don't need an email to register. It is certain to stay forever until something bad happens, which is very unlikely.</p>
+    <p>Sixthworks is your solution for modding and cheating in games. For 2 years, we have been developing a stable service to meet the hacking needs for our favorite games. Thanks for the funding of our users, the project is certain to stay forever. Sixthworks is intended to be a non-profit project, but operation expenses must be covered. Unlike other providers, we actually care about the product and have good & stable code.</p>
 
     <!-- Separator -->
     <hr>
@@ -168,9 +168,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
     <hr>
     
     <!-- Monero image -->
-    <img class="mb-3" src="media/monero.svg">
+    <img class="img-fluid mb-3" src="media/monero.svg">
 
-    <h4>Buying with monero.</h4>
+    <h4>Buying</h4>
     <p>Purchasing with <a href="https://en.wikipedia.org/wiki/Monero">monero</a> makes you avoid many reseller difficulties to go through, the purchase is automated and has no humans behind it. You will avoid human interaction or wasting useless time on talking with a person. When buying officially from us, many positive <a href="/tos">terms</a> apply and you can refund.</p>
 
     <?php
@@ -190,21 +190,31 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
       {
     ?>
 
-    <h4>Payment information.</h4>
-    <p>Convert the product price to <a href="https://en.wikipedia.org/wiki/Monero">monero</a> on <a href="https://www.coingecko.com/en/coins/monero/usd">this page</a>, price is listed in every dropdown. Purchase will go through only if you send an equal/greater amount.</p>
+    <h4>Payment</h4>
+    <p class="mb-2" style="margin-bottom: unset">Convert the product price to <a href="https://en.wikipedia.org/wiki/Monero">monero</a> on <a href="https://www.coingecko.com/en/coins/monero/usd">this page</a>, price is listed in every dropdown. Purchase will go through only if you send an equal/greater amount.</p>
+ 
+    <div>
+      <button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target="#wallet" aria-expanded="false" aria-controls="wallet">
+        Details
+      </button>
+  
+      <div class="collapse" id="wallet">
+        <div class="card card-body mb-2">
+          Before sending anything to us, make sure that you have created a purchase request below.
+          <br>
+          <i><u>45HQ4tM6K5G3ndK6e7fWdXMtL89pYEWXm1tM957QyQtfKV9GPf59sQNixgJappduEGSSuv9BBEWRN7RKh7H3i58b6i6GcV7</i></u>
+        </div>
+      </div>
+    </div>
     
-    <p>If you send anything to our wallet <strong>before creating</strong> a purchase request, nothing will be sent to your email address. <strong>Always create</strong> a purchase request before paying anything to our wallet.</p>
-    
-    <p>Our wallet: <i><u>45HQ4tM6K5G3ndK6e7fWdXMtL89pYEWXm1tM957QyQtfKV9GPf59sQNixgJappduEGSSuv9BBEWRN7RKh7H3i58b6i6GcV7</u></i></p>
-
-    <h4>Purchase request.</h4>
+    <h4>Purchase request</h4>
     <form class="form-basic mt-3" action="backend/request.php" method="post">
       <div class="form-group">
         <select class="form-control" name="game">
           <?php
             foreach (array_keys($MENU_DATA['games']) as $GAME)
             {
-              $STR = $MENU_DATA['games'][$GAME]['full_name'] . " (" . $MENU_DATA['games'][$GAME]['cost'] . ")";
+              $STR = $MENU_DATA['games'][$GAME]['full_name'] . " - " . $MENU_DATA['games'][$GAME]['cost'];
               echo "<option value='$GAME'>$STR</option>";
 
               $i++;
@@ -219,15 +229,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
       </div>
       
       <label for="input_wallet" class="sr-only">Payment wallet</label>
-      <input name="wallet" type="wallet" id="input_wallet" class="form-control mb-2" placeholder="Payment wallet" required autofocus>
+      <input name="wallet" type="wallet" id="input_wallet" class="form-control mb-2" placeholder="Your wallet" required autofocus>
       
-      <div class="g-recaptcha mb-2" data-sitekey="6Lfkh34eAAAAAI3fSfOaVIkZTFM0VChDaP-qfo7c"></div>
+      <div class="g-recaptcha mb-3" data-sitekey="6Lfkh34eAAAAAI3fSfOaVIkZTFM0VChDaP-qfo7c"></div>
 
-      <div class="alert alert-warning" role="alert">
-        In the second field, enter the <strong>wallet</strong> from which the <strong>transaction</strong> will come. After <strong>requesting</strong> a purchase, send a required amount of monero to our <strong>wallet</strong>.
-      </div>
-
-      <button class="btn btn-default btn-md mb-3" type="submit">Request purchase</button>
+      <button class="btn btn-primary mb-3" type="submit">Request</button>
     </form>
     
     <?php

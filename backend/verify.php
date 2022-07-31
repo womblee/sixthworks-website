@@ -46,10 +46,10 @@ if (empty($GAME))
     json_die();
 }
 
-// Get the row here, no need to use the 'exists' function, since we will need to use that row later anyway.
+// Row
 $ROW = DB::queryFirstRow("SELECT * FROM accounts WHERE username=%s", $USERNAME);
 
-// Does it exist?
+// Valid?
 if ($ROW == null)
 {
     $ARRAY['error'] = "Provided account does not exist.";
@@ -67,13 +67,15 @@ if ($COMPARISON == false)
     json_die();
 }
 
-// Games list
+// Games
 $GAMES = $MENU_DATA['games'];
 
 if (array_key_exists($GAME, $GAMES))
 {
+    // Subscriptions
     $HAS = $ACCOUNT_MANAGER->has_game_version($ROW, $GAME);
 
+    // Has one?
     if ($HAS['status'] == true)
     {
         $ARRAY['status'] = "success";
@@ -91,7 +93,7 @@ else
     json_die();
 }
 
-// Give out the final death
+// Final death
 json_die();
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/backend/protected/mysql.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/backend/protected/smtp_data.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/backend/protected/mail_data.php';
 
 // Mailer
 require(dirname(__DIR__) . "/protected/mailer/PHPMailer.php");

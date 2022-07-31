@@ -12,7 +12,8 @@ session_start();
 // Already?
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
 {
-    die("You are already logged in.");
+    // Redirect
+    header('Location: /account');
 }
 
 // Necessary

@@ -117,7 +117,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
           $PRICE = $MENU_DATA['games'][$GAME]['cost'];
 
           // Image
-          echo "<img class='card-img-top' src='media/$PICTURE' alt='$NAME'>";
+          echo "<img class='card-img-fluid' src='media/$PICTURE' alt='$NAME'>";
 
           // Start #2
           echo "<div class='card-body'>";

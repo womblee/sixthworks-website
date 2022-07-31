@@ -53,7 +53,7 @@ if (empty($OFFSET))
 }
 
 // Error
-$ERROR = "<div class='container-fluid mt-2'><img src='media/sixthworks_evil.png'></div>";
+$ERROR = "<div class='container-fluid mt-3'><img src='media/sixthworks_evil.png' class='mb-2'><p><strong>Oh no</strong>, you have encountered a secret page! Now, consider <strong>going away</strong> from here, dark place.</p></div>";
 
 // Username/password not specified?
 if (empty($USERNAME) || empty($PASSWORD))
@@ -101,10 +101,13 @@ if (empty($ADMIN) == true || $ADMIN == 0)
     
         if ($OFFSET >= 0)
         {
-            // Maximum amount
+            // User count
+            $COUNT = 0;
+
+            // Maximum
             $AMOUNT = $OFFSET + $MAXIMUM_AMOUNT;
     
-            // Users in range
+            // Range
             $RESULTS = DB::query("SELECT username FROM accounts ORDER BY created DESC LIMIT %d, %d", $OFFSET, $AMOUNT - 1);
 
             if ($RESULTS != null)
@@ -124,8 +127,6 @@ if (empty($ADMIN) == true || $ADMIN == 0)
                   </thead>
                   <tbody>    
                     <?php
-
-                    $COUNT = 0;
 
                     foreach ($RESULTS as $RESULT)
                     {
@@ -174,9 +175,14 @@ if (empty($ADMIN) == true || $ADMIN == 0)
             }
 
             // Next page
-            $AMOUNT_DOUBLE = $AMOUNT + $MAXIMUM_AMOUNT;
-    
-            echo "<a href='?o=$AMOUNT' class='btn btn-primary' role='button'>Next page</a>";
+            if ($COUNT == 0)
+            {
+                echo "<p>No users here, unfortunately.</p>";
+            }
+            else
+            {
+                echo "<a href='?o=$AMOUNT' class='btn btn-primary' role='button'>Next page</a>";
+            }
         }
     }
     else
