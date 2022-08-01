@@ -112,6 +112,7 @@ if (empty($ADMIN) == true || $ADMIN == 0)
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Username</th>
+                      <th scope="col">Email</th>
                       <th scope="col">Created</th>
                       <th scope="col">Verified</th>
                       <th scope="col">Privelege</th>
@@ -144,6 +145,13 @@ if (empty($ADMIN) == true || $ADMIN == 0)
                             echo "<td>$STR</td>";
                         }
 
+                        // Username
+                        $EMAIL = $ROW_RESULTS['email'];
+                        {
+                            // Print
+                            echo "<td>$EMAIL</td>";
+                        }
+
                         // Created
                         $DATE = $ROW_RESULTS['created'];
                         {
@@ -155,7 +163,7 @@ if (empty($ADMIN) == true || $ADMIN == 0)
                         $VERIFIED = $ROW_RESULTS['verified'] === '1' ? 'Yes' : 'No';
                         {
                             // Fancy
-                            $STR = $ACCOUNT_MANAGER->has_old_unverified($ROW_RESULTS) ? "<span class='text-danger'>Expiration</span>" : "$VERIFIED";
+                            $STR = $ACCOUNT_MANAGER->has_old_unverified($ROW_RESULTS) && $VERIFIED == false ? "<span class='text-danger'>Expiration</span>" : "$VERIFIED";
                             
                             // Print
                             echo "<td>$STR</td>";
