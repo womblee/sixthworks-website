@@ -24,8 +24,9 @@
 <body>
     
 <?php
-include __DIR__ . '/backend/protected/mysql.php';
-include __DIR__ . '/backend/protected/menu_data.php';
+
+// Account manager
+include __DIR__ . '/backend/utils/accounts.php';
 
 // Cookies
 session_start();
@@ -58,8 +59,6 @@ $ERROR = "<div class='container-fluid mt-3'><img src='media/sixthworks_evil.png'
 // Username/password not specified?
 if (empty($USERNAME) || empty($PASSWORD))
 {
-    http_response_code(403);
-
     die($ERROR);
 }
 
@@ -69,8 +68,6 @@ $ROW = DB::queryFirstRow("SELECT * FROM accounts WHERE username=%s", $USERNAME);
 // Invalid?
 if ($ROW == null)
 {
-    http_response_code(403);
-
     die($ERROR);
 }
 
@@ -80,8 +77,6 @@ $ADMIN = $ROW['moderator'];
 // Is moderator?
 if (empty($ADMIN) == true || $ADMIN == 0)
 {
-    http_response_code(403);
-
     die($ERROR);
 }
 
@@ -121,6 +116,7 @@ if (empty($ADMIN) == true || $ADMIN == 0)
                       <th scope="col">#</th>
                       <th scope="col">Username</th>
                       <th scope="col">Created</th>
+                      <th scope="col">Verified</th>
                       <th scope="col">Privelege</th>
                       <th scope="col">Action</th>
                     </tr>
@@ -143,23 +139,44 @@ if (empty($ADMIN) == true || $ADMIN == 0)
 
                         // Username
                         $USERNAME = $ROW_RESULTS['username'];
-
-                        echo "<td>$USERNAME</td>";
+                        {
+                            // Fancy
+                            $STR = $ACCOUNT_MANAGER->has_sharing_suspicion($ROW_RESULTS) ? "<span class='text-warning'>$USERNAME</span>" : "$USERNAME";
+    
+                            // Print
+                            echo "<td>$STR</td>";
+                        }
 
                         // Created
                         $DATE = $ROW_RESULTS['created'];
+                        {
+                            // Print
+                            echo "<td>$DATE</td>";
+                        }
 
-                        echo "<td>$DATE</td>";
-
+                        // Verified
+                        $VERIFIED = $ROW_RESULTS['verified'] === '1' ? 'Yes' : 'No';
+                        {
+                            // Fancy
+                            $STR = $ACCOUNT_MANAGER->has_old_unverified($ROW_RESULTS) ? "<span class='text-danger'>Expiration</span>" : "$VERIFIED";
+                            
+                            // Print
+                            echo "<td>$STR</td>";
+                        }
+                        
                         // Privelege
                         $ADMIN = $ROW_RESULTS['moderator'] > 0 ? 'moderator' : 'user';
-
-                        echo "<td>$ADMIN</td>";
+                        {
+                            // Print
+                            echo "<td>$ADMIN</td>";
+                        }
 
                         // View
                         $STR = "<a href='?u=$USERNAME'>View</a>";
-
-                        echo "<td>$STR</td>";
+                        {
+                            // Print
+                            echo "<td>$STR</td>";
+                        }
 
                         // End
                         echo "</tr>";
@@ -193,157 +210,156 @@ if (empty($ADMIN) == true || $ADMIN == 0)
         if ($ROW != null)
         {
             // Div begin
-            echo "<div>";
+            echo "<div class='mb-2'>";
 
-            // List
-            $GAMES = $ROW['games'];
+            // HWID Logs
+            echo "<h2 class='mb-3'>HWID logs</h2>";
+            {
+                // List
+                $LIST = $ROW['hwid_logs'];
     
-            // Form begin
-            echo "<form class='form-basic' method='post'>";
-
-            // Games input
-            echo "<label for='games' class='sr-only'>User games</label>";
-            echo "<input type='text' id='games' class='form-control mb-2' placeholder='User games' value='$GAMES' name='games' required autofocus>";
-    
-            // Current HWID
-            $HWID = $ROW['hwid'];
-    
-            // HWID input
-            echo "<label for='hwid' class='sr-only'>HWID</label>";
-            echo "<input type='text' id='hwid' class='form-control mb-2' placeholder='HWID' value='$HWID' name='hwid'>";
-    
-            // Current cooldown
-            $HWID_UPDATE = $ROW['hwid_update'];
-    
-            // Cooldown input
-            echo "<label for='hwid_cooldown' class='sr-only'>HWID cooldown</label>";
-            echo "<input type='text' id='hwid_cooldown' class='form-control mb-2' placeholder='HWID cooldown' value='$HWID_UPDATE' name='hwid_cooldown'>";
-    
-            // Warning
-            echo "<div class='alert alert-warning' role='alert'>It is <strong>not recommended</strong> to change anything here, unless you <strong>know</strong> how to properly change every field and know what you're doing.</div>";
-
-            // Apply
-            echo "<button type='submit' class='btn btn-primary mb-3'>Apply all</button>";
+                // Decoded
+                $LIST = json_decode($LIST, true);
+        
+                if ($LIST != null)
+                {
+                    // Sorting by date
+                    $SORTED = [];
+        
+                    foreach ($LIST as $LOG)
+                    {
+                        // Date
+                        $DATE = $LOG['time'];
+        
+                        array_push($SORTED, $DATE);
+                    }
+        
+                    // Sort in descending order
+                    rsort($SORTED);
+        
+                    // Dummy
+                    $ARRAY = [];
+        
+                    foreach ($SORTED as $DATE)
+                    {
+                        foreach ($LIST as $LOG)
+                        {
+                            // Data
+                            $DECODED_HWID = $LOG['hwid'];
+                            $DECODED_DATE = $LOG['time'];
+        
+                            // Push log
+                            if ($DATE == $DECODED_DATE)
+                            {
+                                $MINI = array($DECODED_HWID, $DECODED_DATE);
+        
+                                array_push($ARRAY, $MINI);
+                            }
+                        }
+                    }
+        
+                    // Replace sorted with dummy
+                    $SORTED = $ARRAY;
+        
+                    // Erase dummy from memory
+                    $ARRAY = null;
+                    
+                    foreach ($SORTED as $LOG)
+                    {
+                        // Data
+                        $HWID = $LOG[0];
+                        $DATE = $LOG[1];
             
-            // Form end
-            echo "</form>";
-    
+                        // Format
+                        $CLASS = new DateTime("@$DATE");
+                        $FORMATTED = $CLASS->format('Y-m-d H:i:s');
+            
+                        echo "$FORMATTED / <strong>$HWID</strong><br>";
+                    }
+                }
+                else
+                {
+                    echo "<p>Not available</p>";
+                }
+            }
+
             // Div end
             echo "</div>";
 
-            // Inputs
-            $INPUT_GAMES = (isset($_POST['games']) ? $_POST['games'] : '');
-            $INPUT_HWID = (isset($_POST['hwid']) ? $_POST['hwid'] : '');
-            $INPUT_COOLDOWN = (isset($_POST['hwid_cooldown']) ? $_POST['hwid_cooldown'] : '');
-    
-            // Array
-            $ARRAY = [];
-    
-            // Games
-            if (strlen($INPUT_COOLDOWN) >= 1)
-            {
-                $ARRAY['games'] = $INPUT_GAMES;
-            }
-    
-            // HWID
-            if (strlen($INPUT_COOLDOWN) >= 1)
-            {
-                $ARRAY['hwid'] = $INPUT_HWID;
-            }
-    
-            // HWID cooldown
-            if (strlen($INPUT_COOLDOWN) >= 1)
-            {
-                // Integer
-                $INTEGER = intval($INPUT_COOLDOWN);
-    
-                // Insert integer
-                $ARRAY['hwid_update'] = $INTEGER;
-            }
-    
-            // MySQL
-            if (count($ARRAY) >= 1)
-            {
-                DB::update('accounts', $ARRAY, "username=%s", $ROW['username']);
-    
-                // Refresh
-                header("Refresh: 0.5");
-            }
-
-            // Separator
-            echo "<hr>";
-            
             // Div begin
-            echo "<div>";
-    
-            // Title
-            echo "<h2 class='mb-3'>IP logs</h2>";
+            echo "<div class='mb-2'>";
 
-            // List
-            $LIST = $ROW['ip_logs'];
-            $DECODED = json_decode($LIST, true);
-    
-            if ($DECODED != null)
+            // IP Logs
+            echo "<h2 class='mb-3'>IP logs</h2>";
             {
-                // Sorting by date
-                $SORTED = [];
+                // List
+                $LIST = $ROW['ip_logs'];
     
-                foreach ($DECODED as $LOG)
+                // Decoded
+                $LIST = json_decode($LIST, true);
+        
+                if ($LIST != null)
                 {
-                    // Date
-                    $DATE = $LOG['time'];
-    
-                    array_push($SORTED, $DATE);
-                }
-    
-                // Sort in descending order
-                rsort($SORTED);
-    
-                // Dummy
-                $ARRAY = [];
-    
-                foreach ($SORTED as $DATE)
-                {
-                    foreach ($DECODED as $LOG)
+                    // Sorting by date
+                    $SORTED = [];
+        
+                    foreach ($LIST as $LOG)
                     {
-                        // Data
-                        $DECODED_USER_AGENT = $LOG['user_agent'];
-                        $DECODED_DATE = $LOG['time'];
-                        $DECODED_IP = $LOG['ip'];
-    
-                        // Push log
-                        if ($DATE == $DECODED_DATE)
+                        // Date
+                        $DATE = $LOG['time'];
+        
+                        array_push($SORTED, $DATE);
+                    }
+        
+                    // Sort in descending order
+                    rsort($SORTED);
+        
+                    // Dummy
+                    $ARRAY = [];
+        
+                    foreach ($SORTED as $DATE)
+                    {
+                        foreach ($LIST as $LOG)
                         {
-                            $MINI = array($DECODED_DATE, $DECODED_IP, $DECODED_USER_AGENT);
-    
-                            array_push($ARRAY, $MINI);
+                            // Data
+                            $DECODED_USER_AGENT = $LOG['user_agent'];
+                            $DECODED_DATE = $LOG['time'];
+                            $DECODED_IP = $LOG['ip'];
+        
+                            // Push log
+                            if ($DATE == $DECODED_DATE)
+                            {
+                                $MINI = array($DECODED_DATE, $DECODED_IP, $DECODED_USER_AGENT);
+        
+                                array_push($ARRAY, $MINI);
+                            }
                         }
                     }
+        
+                    // Replace sorted with dummy
+                    $SORTED = $ARRAY;
+        
+                    // Erase dummy from memory
+                    $ARRAY = null;
+                    
+                    foreach ($SORTED as $LOG)
+                    {
+                        // Data
+                        $DATE = $LOG[0];
+                        $IP = $LOG[1];
+                        $USER_AGENT = empty($LOG[2]) ? "Unknown" : $LOG[2];
+            
+                        // Format
+                        $CLASS = new DateTime("@$DATE");
+                        $FORMATTED = $CLASS->format('Y-m-d H:i:s');
+            
+                        echo "$FORMATTED / <strong>$IP</strong> / $USER_AGENT / <a href='http://ip-api.com/json/$IP?fields=192319'>view</a><br>";
+                    }
                 }
-    
-                // Replace sorted with dummy
-                $SORTED = $ARRAY;
-    
-                // Erase dummy from memory
-                $ARRAY = null;
-                
-                foreach ($SORTED as $LOG)
+                else
                 {
-                    // Data
-                    $DATE = $LOG[0];
-                    $IP = $LOG[1];
-                    $USER_AGENT = empty($LOG[2]) ? "Unknown" : $LOG[2];
-        
-                    // Format
-                    $CLASS = new DateTime("@$DATE");
-                    $FORMATTED = $CLASS->format('Y-m-d H:i:s');
-        
-                    echo "$FORMATTED / <strong>$IP</strong> / <em>$USER_AGENT</em> / <a href='http://ip-api.com/json/$IP?fields=192319'>view</a><br>";
+                    echo "<p>Not available</p>";
                 }
-            }
-            else
-            {
-                echo "<p>Not available</p>";
             }
 
             // Div end

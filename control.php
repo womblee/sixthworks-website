@@ -60,6 +60,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
 
 if ($ALLOW)
 {
+
 ?>
 
 <!-- Navbar -->
@@ -236,7 +237,22 @@ if ($ALLOW)
       <p><?php echo $ROW['username']?></p>
 
       <h3>Registration date</h3>
-      <p><?php echo $ROW['created']?></p>
+      <?php
+        // Date
+        $DATE = $ROW['created'];
+  
+        if ($DATE != 0 && empty($DATE) == false)
+        {
+          $CLASS = new DateTime("@$DATE");
+          $FORMATTED = $CLASS->format('Y-m-d H:i:s');
+  
+          echo "<p>$FORMATTED</p>";
+        }
+        else
+        {
+          echo "<p>None</p>";
+        }
+      ?>
 
       <h3>Purchased cheats</h3>
       

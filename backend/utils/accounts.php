@@ -48,6 +48,18 @@ class ACCOUNTS
         return $STATUS === '1';
     }
 
+    function has_old_unverified($ROW)
+    {
+        // Timestamp
+        $DATE = $ROW['created'];
+
+        // Difference
+        $DIFFERENCE = time() - $DATE;
+
+        // Return
+        return $DIFFERENCE >= 86400;
+    }
+
     function compare_passwords($ROW, $PASSWORD)
     {
         // Data
@@ -355,7 +367,7 @@ class ACCOUNTS
         $BASE64_IV = base64_encode($HASHED_ARRAY['iv']);
 
         // Creation date
-        $CREATED = date("c");
+        $CREATED = time();
 
         // Game list
         $GAMES = $GAMES_MANAGER->table_string();
@@ -371,6 +383,7 @@ class ACCOUNTS
             'enc_key' => $BASE64_ENC_KEY,
             'iv' => $BASE64_IV,
             'ip_logs' => 'null',
+            'hwid_logs' => 'null',
             'hwid' => 'null',
             'hwid_update' => 0,
             'games' => $GAMES,
@@ -790,6 +803,135 @@ class ACCOUNTS
         $COOLDOWN_TIME = 86400;
         
         return $CURRENT_TIME < $ROW['hwid_update'] + $COOLDOWN_TIME;
+    }
+    
+    function log_hwid($ROW, $HWID)
+    {
+        // Time
+        $CURRENT_TIME = time();
+
+        // Element
+        $ARRAY =
+        [
+            'hwid' => $HWID,
+            'time' => $CURRENT_TIME,
+        ];
+
+        // Current logs
+        $CURRENT = $ROW['hwid_logs'];
+
+        // Serve it as an element on the first time, not as an independent array
+        $PUSHED = false;
+
+        if (empty($CURRENT) == true || $CURRENT == "null")
+        {
+            // Push to the dummy
+            $PLACEHOLDER = [];
+            array_push($PLACEHOLDER, $ARRAY);
+
+            // So that we do not push an array inside of an array.
+            $PUSHED = true;
+
+            // Assign
+            $ARRAY = $PLACEHOLDER;
+        }
+
+        if ($PUSHED == false)
+        {
+            // Current one, should be already an array
+            $DECODED = json_decode($CURRENT, true);
+            
+            // Keep only 30, more will cause issues related to sharing suspicion, it's already a lot also
+            if (count($DECODED) >= 30)
+            {
+                // Erase everything
+                $DECODED = [];
+            }
+
+            // No need to mess with the decoded, rather create a variable instead.
+            $DUMMY = $DECODED;
+
+            // Is actually an array?
+            if (is_array($DECODED))
+            {
+                // Push to dummy
+                array_push($DUMMY, $ARRAY);
+
+                // Assign to main variable
+                $ARRAY = $DUMMY;
+            }
+        }
+
+        // Encoded JSON
+        $ENCODED = json_encode($ARRAY);
+        
+        // Update
+        $UPDATE =
+        [
+            'hwid_logs' => $ENCODED,
+        ];
+
+        // Update
+        DB::update('accounts', $UPDATE, "username=%s", $ROW['username']);
+    }
+
+    function has_sharing_suspicion($ROW)
+    {
+        // Logs
+        $LOGS = $ROW['hwid_logs'];
+        
+        // Validate
+        if (empty($LOGS) == true || $LOGS == "null")
+        {
+            // Return
+            return false;
+        }
+
+        // Decoded
+        $LOGS = json_decode($LOGS, true);
+
+        // Countup of every log with same HWID
+        $BUFFER = [];
+        
+        foreach ($LOGS as $LOG)
+        {
+            // HWID
+            $HWID = $LOG['hwid'];
+        
+            // Validate
+            if (array_key_exists($HWID, $BUFFER) == false)
+            {
+                $BUFFER[$HWID] = 0;
+            }
+        
+            // Add to count
+            $BUFFER[$HWID] = $BUFFER[$HWID] + 1;
+        }
+        
+        // Logs that repeat 2 times
+        $POSITIVE = [];
+        
+        foreach ($BUFFER as $HWID => $COUNT)
+        {
+            if ($COUNT >= 2)
+            {
+                array_push($POSITIVE, $HWID);
+            }
+        }
+        
+        // Suspicions moments
+        $COUNT = 0;
+        
+        foreach ($POSITIVE as $HWID)
+        {
+            $COUNT++;
+        }
+        
+        // Decision?
+        $SUSPICOUS = $COUNT >= 3;
+    
+        // Return
+        return $SUSPICOUS;
     }
 
     function attempt_hwid($USERNAME, $PASSWORD, $HWID)

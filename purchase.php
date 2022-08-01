@@ -194,7 +194,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
     <p class="mb-2" style="margin-bottom: unset">Convert the product price to <a href="https://en.wikipedia.org/wiki/Monero">monero</a> on <a href="https://www.coingecko.com/en/coins/monero/usd">this page</a>, price is listed in every dropdown. Purchase will go through only if you send an equal/greater amount.</p>
  
     <div>
-      <button class="btn btn-primary mb-2" type="button" data-toggle="collapse" data-target="#wallet" aria-expanded="false" aria-controls="wallet">
+      <button class="btn btn-dark mb-2" type="button" data-toggle="collapse" data-target="#wallet" aria-expanded="false" aria-controls="wallet">
         Details
       </button>
   
@@ -233,7 +233,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
       
       <div class="g-recaptcha mb-3" data-sitekey="6Lfkh34eAAAAAI3fSfOaVIkZTFM0VChDaP-qfo7c"></div>
 
-      <button class="btn btn-primary mb-3" type="submit">Request</button>
+      <button class="btn btn-dark mb-3" type="submit">Request</button>
     </form>
     
     <?php
