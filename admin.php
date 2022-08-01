@@ -82,10 +82,7 @@ if (empty($ADMIN) == true || $ADMIN == 0)
 
 ?>
 
-<div class="container-fluid">
-    <!-- Title -->
-    <h1 class="pt-3 mb-4">Monitoring utility.</h1>
-
+<div class="container-fluid pt-3">
     <?php
 
     // All users
