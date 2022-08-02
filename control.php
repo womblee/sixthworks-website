@@ -476,13 +476,15 @@ else
     <input name="login" type="login" id="input_login" class="form-control mb-2" placeholder="Username / Email" required autofocus>
 
     <label for="input_password" class="sr-only">Password</label>
-    <input name="password" type="password" id="input_password" class="form-control mb-2" placeholder="Password" aria-labelledby="forgot" required>
+    <input name="password" type="password" id="input_password" class="form-control mb-2" placeholder="Password" required>
     
-    <div class="form-helper mb-2">Forgot password? Reset <a href="/reset">here</a>.</div>
+    <div class="form-helper mb-2">Forgot password? <a href="/reset">Reset here</a>.</div>
 
     <div class="g-recaptcha mb-2" data-sitekey="6Lfkh34eAAAAAI3fSfOaVIkZTFM0VChDaP-qfo7c"></div>
     
     <p>Not a member? <a href="?register">Sign up</a>.</p>
+
+    <input name="remember" type="hidden" id="input_remember" value="yes">
 
     <button class="btn btn-outline-primary btn-lg mb-3" type="submit">Login</button>
   </form>

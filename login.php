@@ -62,10 +62,18 @@ $_SESSION['logged_in'] = true;
 $_SESSION['username'] = $ROW['username'];
 $_SESSION['password'] = $PASSWORD;
 
-// Don't remember
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
+// Remember
+if (isset($_POST['remember']))
+{
+	// Cookie store time
+	$TIME = 1209600;
+
+	// Params
+    $PARAMS = session_get_cookie_params();
+    
+    // Extend
+    setcookie(session_name(), $_COOKIE[session_name()], time() + $TIME, $PARAMS["path"], $PARAMS["domain"], $PARAMS["secure"], $PARAMS["httponly"]);
+}
 
 // Redirect
 header('Location: /account');

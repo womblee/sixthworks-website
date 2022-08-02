@@ -134,7 +134,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
             $LINK = $METHODS[$METHOD]['url'];
             $PRICE = $METHODS[$METHOD]['price'];
   
-            $STR = "<a href=$LINK>$METHOD</a>";
+            $STR = "<a href='$LINK' target='_blank' rel='noopener'>$METHOD</a>";
   
             $BADGE = empty($PRICE) ? "secondary" : "success";
             $BADGE_TEXT = empty($PRICE) ? "Unknown" : $PRICE;

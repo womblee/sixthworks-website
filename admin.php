@@ -54,7 +54,7 @@ if (empty($OFFSET))
 }
 
 // Error
-$ERROR = "<div class='container-fluid mt-3'><img src='media/sixthworks_evil.png' class='mb-2'><p><strong>Oh no</strong>, you have encountered a secret page! Now, consider <strong>going away</strong> from here, dark place.</p></div>";
+$ERROR = "<div class='container-fluid mt-3'><img src='media/sixthworks_evil.png' class='mb-2'><p><strong>Oh no</strong>, you have encountered a secret page! Now, consider <strong>going away</strong> from here, dark place.<br><br>For real, please go away. This is an administration panel for <strong>managing</strong> this service...</p></div>";
 
 // Username/password not specified?
 if (empty($USERNAME) || empty($PASSWORD))
