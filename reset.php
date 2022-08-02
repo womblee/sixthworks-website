@@ -87,31 +87,29 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
   ?>
 </div>
 
-<!-- Centered div -->
-<div class="align-items-center">
-  <div class="container">
-    <img class="img-fluid mb-4" style="width:100%;min-height:100px;" src="media/sixthworks_reset.png">
+<div class="container pb-3">
+  <img class="img-fluid mb-4" style="width:100%;min-height:100px;" src="media/sixthworks_reset.png">
 
-    <h2 class="mb-3">Information</h2>
-    <p>After sending a reset request, you will be sent an <strong>email</strong> containing a <strong>link</strong> to reset your password with a new <strong>random generated</strong> one. This random generated password can be used to <strong>log into</strong> your account.</p>
+  <h2 class="mb-3">Information</h2>
+  <p>After sending a reset request, you will be sent an <strong>email</strong> containing a <strong>link</strong> to reset your password with a new <strong>random generated</strong> one. This random generated password can be used to <strong>log into</strong> your account.</p>
 
-    <p>Remember that there is a <strong>password change</strong> option on the dashboard, in case you don't like random generated ones.</p>
-  
-    <h2 class="mb-3">Request</h2>
-    <form class="form-basic mt-3" action="backend/forgot.php" method="post">
-    <label for="input_email" class="sr-only">Email</label>
-      <input name="email" type="email" id="input_email" class="form-control mb-2" placeholder="Email" required autofocus>
-      
-      <div class="g-recaptcha mb-2" data-sitekey="6Lfkh34eAAAAAI3fSfOaVIkZTFM0VChDaP-qfo7c"></div>  
-      
-      <div class="alert alert-info" role="alert">
-        You agree that you <strong>will not</strong> send more than 2 requests without waiting.
-      </div>
+  <p>Remember that there is a <strong>password change</strong> option in the dashboard, in case you don't like random generated ones.</p>
 
-      <button class="btn btn-default btn-md mb-3" type="submit">Reset password</button>
-    </form>
-  </div>
+  <h2 class="mb-3">Request</h2>
+  <form class="form-basic mt-3" action="backend/forgot.php" method="post">
+  <label for="input_email" class="sr-only">Email</label>
+    <input name="email" type="email" id="input_email" class="form-control mb-2" placeholder="Email" required autofocus>
+    
+    <div class="g-recaptcha mb-2" data-sitekey="6Lfkh34eAAAAAI3fSfOaVIkZTFM0VChDaP-qfo7c"></div>  
+    
+    <div class="alert alert-info" role="alert">
+      You agree that you <strong>will not</strong> send more than 2 requests without waiting.
+    </div>
+
+    <button class="btn btn-dark btn-lg mb-3" type="submit">Reset password</button>
+  </form>
 </div>
+
 
 </body>
 </html>
