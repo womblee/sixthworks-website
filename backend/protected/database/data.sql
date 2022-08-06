@@ -16,7 +16,8 @@ CREATE TABLE accounts (
 
 CREATE TABLE email_verification (
   email TEXT,
-  code TEXT
+  code TEXT,
+  time INT DEFAULT 0
 );
 
 CREATE TABLE requests (
@@ -27,7 +28,8 @@ CREATE TABLE requests (
 
 CREATE TABLE requests_reset (
   email TEXT,
-  code TEXT
+  code TEXT,
+  time INT DEFAULT 0
 );
 
 CREATE TABLE requests_purchase (

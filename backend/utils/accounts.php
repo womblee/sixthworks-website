@@ -238,6 +238,40 @@ class ACCOUNTS
         // Import data
         global $SMTP_DATA;
 
+        // Current time
+        $CURRENT_TIME = time();
+
+        // Validate
+        $RESULTS = DB::query("SELECT * FROM email_verification WHERE email=%s", $EMAIL);
+        {
+            // Hits
+            $HITS = 0;
+    
+            // Hits with cooldown
+            $COOLDOWN_HITS = 0;
+    
+            foreach ($RESULTS as $RESULT)
+            {
+                // Time
+                $TIME = $RESULT['time'];
+    
+                // Cooldown
+                if ($CURRENT_TIME - $TIME >= 60)
+                {
+                    $COOLDOWN_HITS++;        
+                }
+    
+                // Add
+                $HITS++;
+            }
+
+            // Hits are older than 60 seconds?
+            if ($HITS > 0 && $HITS != $COOLDOWN_HITS)
+            {
+                return false;
+            }
+        }
+
         // Verification
         $MAIL = new PHPMailer();
         
@@ -280,6 +314,7 @@ class ACCOUNTS
             [
                 'email' => $EMAIL,
                 'code' => $UNIQUE,
+                'time' => $CURRENT_TIME,
             ];
     
             // Insert
@@ -404,7 +439,7 @@ class ACCOUNTS
             return 
             [
                 "status" => false,
-                "string" => "Failed sending a verification letter to your inbox, please contact an administrator.",
+                "string" => "Failed in sending a verification letter, maybe you requested too much in a short period of time? In case you did not, please contact an administrator.",
             ];
         }
 
@@ -467,7 +502,7 @@ class ACCOUNTS
             return 
             [
                 "status" => false,
-                "string" => "Failed resending a verification letter to your inbox, please contact an administrator.",
+                "string" => "Failed resending a verification letter to your inbox, maybe you requested too much in a short period of time? In case you did not, please contact an administrator.",
             ];
         }
 
@@ -555,6 +590,44 @@ class ACCOUNTS
             ];
         }
 
+        // Current time
+        $CURRENT_TIME = time();
+
+        // Validate
+        $RESULTS = DB::query("SELECT * FROM requests_reset WHERE email=%s", $EMAIL);
+        {
+            // Hits
+            $HITS = 0;
+    
+            // Hits with cooldown
+            $COOLDOWN_HITS = 0;
+    
+            foreach ($RESULTS as $RESULT)
+            {
+                // Time
+                $TIME = $RESULT['time'];
+    
+                // Cooldown
+                if ($CURRENT_TIME - $TIME >= 60)
+                {
+                    $COOLDOWN_HITS++;        
+                }
+    
+                // Add
+                $HITS++;
+            }
+
+            // Hits are older than 60 seconds?
+            if ($HITS > 0 && $HITS != $COOLDOWN_HITS)
+            {
+                return
+                [
+                    "status" => false,
+                    "string" => "You can reset your password only each 60 seconds.",
+                ];
+            }
+        }
+
         // Verification
         $MAIL = new PHPMailer();
 
@@ -600,6 +673,7 @@ class ACCOUNTS
             [
                 'email' => $EMAIL,
                 'code' => $UNIQUE,
+                'time' => $CURRENT_TIME,
             ];
             
             // Insert

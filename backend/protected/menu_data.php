@@ -24,8 +24,29 @@ $MENU_DATA =
             "cost" => "20$",
         ]
     ],
+];
 
-    "launcher_version" => "0.0.1",
+$CRC_DATA =
+[
+    "launcher" =>
+    [
+        "CDR" => 0xDBDF,
+        "CHE" => 0x123F,
+        "CSTR" => 0x27DF,
+        "CVR" => 0xDBDF,
+        "GA" => 0x4BF,
+        "GG" => 0x123F,
+        "GV" => 0x1271F,
+        "IC" => 0xFFF,
+        "ISFN" => 0x68BF,
+        "TRPC" => 0xA99F,
+        "WB" => 0xDBDF,
+    ]
+];
+
+$VALIDATION_DATA =
+[
+    "launcher" => "0.0.1"
 ];
 
 $VERSION_DATA =
