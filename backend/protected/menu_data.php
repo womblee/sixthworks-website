@@ -2,6 +2,7 @@
 
 $MENU_DATA =
 [
+    // A bit too old, thought it was going to be in one array only.
     "games" =>
     [
         "gta" =>
@@ -30,17 +31,16 @@ $CRC_DATA =
 [
     "launcher" =>
     [
-        "CDR" => 0xDBDF,
-        "CHE" => 0x123F,
-        "CSTR" => 0x27DF,
-        "CVR" => 0xDBDF,
-        "GA" => 0x4BF,
-        "GG" => 0x123F,
-        "GV" => 0x1271F,
-        "IC" => 0xFFF,
-        "ISFN" => 0x68BF,
-        "TRPC" => 0xA99F,
-        "WB" => 0xDBDF,
+        "TRPC" => 0x4BF,
+        "CVR" => 0x27DF,
+        "CDR" => 0x27DF,
+        "GA" => 0x68BF,
+        "ISFN" => 0x4BF,
+        "IC" => 0x7E5F,
+        "CSTR" => 0x7E5F,
+        "CHE" => 0x68BF,
+        "WB" => 0x27DF,
+        "GG" => 0x909F
     ]
 ];
 

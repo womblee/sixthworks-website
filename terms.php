@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <!-- Title bar -->
-    <title>Sixthworks</title>
-    <link rel="icon" href="media/sixthworks_transparent.ico" type="image/x-icon">
-    
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="css/main.css">
 
-    <!-- Style -->
-    <style>
-      ul {
-        padding-left: 20px;
-      }
-    </style>
+<html lang="en">
+<head>
+  <!-- Title bar -->
+  <title>Sixthworks</title>
+  <link rel="icon" href="media/sixthworks_transparent.ico" type="image/x-icon">
+  
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+
+  <!-- Style -->
+  <style>
+    ul {
+      padding-left: 20px;
+    }
+  </style>
 </head>
 
 <body>
@@ -111,7 +112,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
       </li>
       
       <li>
-        We only store the minimum amount of data that is required for this service to operate: username, password, ip.
+        We only store the minimum amount of data that is required for this service to operate: username, email, password, ip.
+      </li>
+
+      <li>
+        We store your email, although we do not want to do it. Having it allows us to reset your password in case you forget it, and many other things.
       </li>
 
       <li>

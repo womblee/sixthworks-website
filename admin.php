@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
   <!-- Title bar -->
   <title>Sixthworks</title>
@@ -214,6 +215,40 @@ if (empty($ADMIN) == true || $ADMIN == 0)
     
         if ($ROW != null)
         {
+            // Div begin
+            echo "<div class='mb-2'>";
+
+            // Games
+            echo "<h2 class='mb-3'>Owned software</h2>";
+            {
+                $i = 0;
+
+                foreach (array_keys($MENU_DATA['games']) as $GAME)
+                {
+                    // Owned?
+                    $STATUS = $ACCOUNT_MANAGER->has_game_version($ROW, $GAME);
+        
+                    if ($STATUS['status'] == true)
+                    {
+                        // Print
+                        $NAME = $MENU_DATA['games'][$GAME]['full_name'];
+    
+                        echo "$NAME<br>";
+
+                        // Iterator
+                        $i++;
+                    }
+                }
+
+                if ($i == 0)
+                {
+                    echo "<p>Not available</p>";
+                }
+            }
+            
+            // Div end
+            echo "</div>";
+
             // Div begin
             echo "<div class='mb-2'>";
 

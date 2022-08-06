@@ -1,5 +1,8 @@
 Options -Indexes
 
+ErrorDocument 403 /errors/403.html
+ErrorDocument 404 /errors/404.html
+
 RewriteEngine on
 RewriteBase / 
 
@@ -12,6 +15,7 @@ RewriteRule ^reset$ reset.php [L,NC]
 
 RewriteRule ^purchase$ purchase.php [L,NC]
 RewriteRule ^tos$ terms.php [L,NC]
+RewriteRule ^legal$ terms.php [L,NC]
 
 RewriteRule ^moderation$ admin.php [L,NC]
 

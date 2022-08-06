@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
   <!-- Title bar -->
   <title>Sixthworks</title>
@@ -170,7 +171,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
       <li>
         <b>Q: What features are included? Does it have this and that?</b>
         <br>
-        <p>A: Key features are listed when pressing the learn more are included and working, usually there is a showcase video featured.</p>
+        <p>A: Key features are listed when pressing the learn more button and are included and working, usually there is a showcase video featured there.</p>
       </li>
 
       <li>
@@ -188,25 +189,25 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
       <li>
         <b>Q: How do I keep the software updated after I downloaded it?</b>
         <br>
-        <p>A: Our launcher automatically updates the software when needed. Release notes are posted on the dashboard.</p>
+        <p>A: Our launcher automatically updates the software when needed. Release notes are posted in the dashboard.</p>
       </li>
 
       <li>
         <b>Q: Can I use your software on my main game account?</b>
         <br>
-        <p>A: You can use our software on any game account.</p>
+        <p>A: You can use our software on any account of your choice.</p>
       </li>
 
       <li>
         <b>Q: Can I share my account with friends?</b>
         <br>
-        <p>A: You are not allowed to share your acount with other people, we keep track of this and have a utility to detect such things.</p>
+        <p>A: You are not allowed to share your acount with other people, we keep track of this and have automated tools to detect such things.</p>
       </li>
 
       <li>
         <b>Q: Can I purchase your software as a gift to my friend?</b>
         <br>
-        <p>A: Yes, as long as you do not share any accounts.</p>
+        <p>A: Yes, as long as you both are not using the same account.</p>
       </li>
     </ul>
   </div>

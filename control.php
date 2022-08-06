@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
   <!-- Title bar -->
   <title>Sixthworks</title>
@@ -244,7 +245,7 @@ if ($ALLOW)
         if ($DATE != 0 && empty($DATE) == false)
         {
           $CLASS = new DateTime("@$DATE");
-          $FORMATTED = $CLASS->format('Y-m-d H:i:s');
+          $FORMATTED = $CLASS->format('l d (M Y)');
   
           echo "<p>$FORMATTED</p>";
         }
@@ -308,7 +309,7 @@ if ($ALLOW)
 
         if ($i == 0)
         {
-          echo "<a href='/purchase'>Where to purchase?</a>";
+          echo "<a href='/purchase'>How to purchase</a>";
         }
         ?>
       </p>

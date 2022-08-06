@@ -304,7 +304,7 @@ class ACCOUNTS
             $URL = "$SITE/email?code=$UNIQUE";
 
             // Content
-            $MAIL->Body = "Hello, please verify that this email belongs to you: <a href='$URL'>$URL</a>";
+            $MAIL->Body = "Hello, please verify that this email belongs to you: <a href='$URL'>verify</a>";
         
             // Send
             $MAIL->send();
@@ -555,10 +555,10 @@ class ACCOUNTS
         }
 
         // Delete
-        $STATUS = DB::delete('email_verification', 'code=%s', $CODE);
+        DB::query("DELETE FROM email_verification WHERE email=%s", $EMAIL);
 
         // Result
-        $RESULT = $STATUS == true && DB::affectedRows() == 1;
+        $RESULT = $STATUS == true && DB::affectedRows() >= 1;
 
         // Return
         return 
@@ -663,7 +663,7 @@ class ACCOUNTS
             $URL = "$SITE/backend/password.php?code=$UNIQUE";
 
             // Content
-            $MAIL->Body = "1. Visit this link if you want to reset your password: <a href=$URL>visit</a><br>2. After using the link above, this should be your new password for authentification: <i><u>$UNIQUE</u></i>";
+            $MAIL->Body = "1. Visit this link if you want to reset your password: <a href=$URL>link</a><br>2. After using the link above, this should be your new password for authentification: <i><u>$UNIQUE</u></i>";
             
             // Send
             $MAIL->send();
@@ -779,10 +779,10 @@ class ACCOUNTS
         }
         
         // Delete
-        $STATUS = DB::delete('requests_reset', 'code=%s', $CODE);
-        
+        $STATUS = DB::query("DELETE FROM requests_reset WHERE code=%s", $CODE);
+
         // Result
-        $RESULT = $STATUS == true && DB::affectedRows() == 1;
+        $RESULT = $STATUS == true && DB::affectedRows() >= 1;
 
         return 
         [
@@ -1301,10 +1301,10 @@ class ACCOUNTS
         if ($RESULT)
         {
             // Delete key
-            $STATUS = DB::delete('redeem_keys', 'code=%s', $KEY);
+            $STATUS = DB::query("DELETE FROM redeem_keys WHERE code=%s", $KEY);
 
             // Change result
-            $RESULT = $STATUS == true && DB::affectedRows() == 1;
+            $RESULT = $STATUS == true && DB::affectedRows() >= 1;
         }
 
         return
