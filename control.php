@@ -15,7 +15,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="css/main.css">
-
+  
   <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -170,7 +170,7 @@ if ($ALLOW)
 
     <div id="hwid" class="container-fluid tab-pane fade"><br>
       <h3 class="mb-2">Actions</h3>
-
+      
       <?php
       if ($ACCOUNT_MANAGER->has_hwid_cooldown($ROW))
       {

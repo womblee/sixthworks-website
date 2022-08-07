@@ -297,8 +297,28 @@ class ACCOUNTS
             $MAIL->Subject = "Verification";
 
             // Generate
-            $UNIQUE = $OTHER_MANAGER->random_string(18);
-            
+            $SIZE = 18;
+
+            // Unique ID
+            $UNIQUE = $OTHER_MANAGER->random_string($SIZE);
+
+            // Validate
+            while (true)
+            {
+                // Rows
+                $QUERY = DB::query("SELECT * FROM email_verification WHERE code=%s", $UNIQUE);
+
+                // Generate again
+                if (count($QUERY) > 0)
+                {
+                    $UNIQUE = $OTHER_MANAGER->random_string($SIZE);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
             // Link
             $SITE = $OTHER_MANAGER->get_url();
             $URL = "$SITE/email?code=$UNIQUE";
@@ -656,7 +676,27 @@ class ACCOUNTS
             $MAIL->Subject = "Password reset";
 
             // Generate
-            $UNIQUE = $OTHER_MANAGER->random_string(16);
+            $SIZE = 16;
+
+            // Unique ID
+            $UNIQUE = $OTHER_MANAGER->random_string($SIZE);
+
+            // Validate
+            while (true)
+            {
+                // Rows
+                $QUERY = DB::query("SELECT * FROM requests_reset WHERE code=%s", $UNIQUE);
+
+                // Generate again
+                if (count($QUERY) > 0)
+                {
+                    $UNIQUE = $OTHER_MANAGER->random_string($SIZE);
+                }
+                else
+                {
+                    break;
+                }
+            }
 
             // Link
             $SITE = $OTHER_MANAGER->get_url();
