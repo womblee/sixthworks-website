@@ -192,19 +192,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
     ?>
 
     <h4>Payment</h4>
-    <p class="mb-2" style="margin-bottom: unset">Convert the product price to <a href="https://en.wikipedia.org/wiki/Monero">monero</a> on <a href="https://www.coingecko.com/en/coins/monero/usd">this page</a>, price is listed in every dropdown. Purchase will go through only if you send an equal/greater amount.</p>
+    <p class="mb-2" style="margin-bottom: unset">Convert the product price to <a href="https://en.wikipedia.org/wiki/Monero">monero</a> on <a href="https://www.coingecko.com/en/coins/monero/usd">this page</a>, price is listed in every dropdown. Purchase will go through only if you send an equal/greater amount. Consider viewing the purchase <i><a href="#" class="text-secondary" data-toggle="collapse" data-target="#wallet" aria-expanded="false" aria-controls="wallet">details</a></i> before creating a purchase request.</p>
  
-    <div>
-      <button class="btn btn-dark mb-2" type="button" data-toggle="collapse" data-target="#wallet" aria-expanded="false" aria-controls="wallet">
-        Details
-      </button>
-  
-      <div class="collapse" id="wallet">
-        <div class="card card-body mb-2">
-          Before sending anything to us, make sure that you have created a purchase request below.
-          <br>
-          <i><u>45HQ4tM6K5G3ndK6e7fWdXMtL89pYEWXm1tM957QyQtfKV9GPf59sQNixgJappduEGSSuv9BBEWRN7RKh7H3i58b6i6GcV7</i></u>
-        </div>
+    <div class="collapse" id="wallet">
+      <div class="card card-body mb-2">
+        Before sending anything to us, make sure that you have created a purchase request below.
+        <br>
+        <i><u>45HQ4tM6K5G3ndK6e7fWdXMtL89pYEWXm1tM957QyQtfKV9GPf59sQNixgJappduEGSSuv9BBEWRN7RKh7H3i58b6i6GcV7</u></i>
       </div>
     </div>
     
@@ -230,11 +224,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
       </div>
       
       <label for="input_wallet" class="sr-only">Payment wallet</label>
-      <input name="wallet" type="wallet" id="input_wallet" class="form-control mb-2" placeholder="Your wallet" required autofocus>
+      <input name="wallet" type="wallet" id="input_wallet" class="form-control mb-2" placeholder="Payment wallet" required autofocus>
       
       <div class="g-recaptcha mb-3" data-sitekey="6Lfkh34eAAAAAI3fSfOaVIkZTFM0VChDaP-qfo7c"></div>
 
-      <button class="btn btn-dark mb-3" type="submit">Request</button>
+      <button class="btn btn-dark btn-lg mb-3" type="submit">Request</button>
     </form>
     
     <?php

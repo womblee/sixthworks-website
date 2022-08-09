@@ -119,35 +119,7 @@ $CHANGELOG_DATA =
             "Added esp class option mode 'icon' which draw icon above player",
             "Added testing version of items respawn timer (note the esp position is inaccurate rn, will fix later)",
             "Fixed 'wait for charge' option to work against disguised players, players marked with 'baim' "
-        ],
-        1650573421 =>
-        [
-            "Product has been released.",
-        ],
-        1601553411 =>
-        [
-            "Product has been released.",
-        ],
-        1501553411 =>
-        [
-            "Product has been released.",
-        ],
-        1401553411 =>
-        [
-            "Product has been released.",
-        ],
-        1301553411 =>
-        [
-            "Product has been released.",
-        ],
-        1201553411 =>
-        [
-            "Product has been released.",
-        ],
-        1101553411 =>
-        [
-            "Product has been released.",
-        ],
+        ]
     ]
 ];
 

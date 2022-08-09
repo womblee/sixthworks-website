@@ -245,7 +245,7 @@ if ($ALLOW)
         if ($DATE != 0 && empty($DATE) == false)
         {
           $CLASS = new DateTime("@$DATE");
-          $FORMATTED = $CLASS->format('l d (M Y)');
+          $FORMATTED = $CLASS->format('l d, F Y');
   
           echo "<p>$FORMATTED</p>";
         }

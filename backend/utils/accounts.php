@@ -415,6 +415,8 @@ class ACCOUNTS
 
         // Get the array with all of the hashed data
         $HASHED_ARRAY = $OTHER_MANAGER->generate_encrypted($PASSWORD);
+        
+        // Password
         $HASHED_PASSWORD = $HASHED_ARRAY['data'];
 
         // Base64
@@ -476,7 +478,6 @@ class ACCOUNTS
         // User
         $ROW = DB::queryFirstRow("SELECT * FROM accounts WHERE username=%s", $USERNAME);
         
-        // User valid?
         if ($ROW == null)
         {
             return
@@ -499,9 +500,9 @@ class ACCOUNTS
         }
 
         // User already verified?
-        $VERIFIED = $ROW['verified'];
+        $VERIFIED = $this->has_verified_email($USERNAME);
 
-        if ($VERIFIED === 1)
+        if ($VERIFIED == true)
         {
             return
             [
@@ -516,7 +517,7 @@ class ACCOUNTS
 
         // Resend
         $VERIFICATION = $this->send_verification($USERNAME, $EMAIL);
-        
+
         if ($VERIFICATION == false)
         {
             return 
@@ -600,13 +601,27 @@ class ACCOUNTS
         // User
         $ROW = DB::queryFirstRow("SELECT * FROM accounts WHERE email=%s", $EMAIL);
 
-        // Valid?
         if ($ROW == null)
         {
             return
             [
                 "status" => false,
                 "string" => "There are no accounts with that email address.",
+            ];
+        }
+        
+        // Username
+        $USERNAME = $ROW['username'];
+
+        // We shouldn't really allow this crap, not sending any emails to an unverified address, sorry.
+        $VERIFIED = $this->has_verified_email($USERNAME);
+
+        if ($VERIFIED == false)
+        {
+            return
+            [
+                "status" => false,
+                "string" => "This account has an unverified email, you had every chance to verify, sorry.",
             ];
         }
 
@@ -643,7 +658,7 @@ class ACCOUNTS
                 return
                 [
                     "status" => false,
-                    "string" => "You can reset your password only each 60 seconds.",
+                    "string" => "You are under cooldown, a reset can be requested only each minute.",
                 ];
             }
         }
@@ -843,7 +858,7 @@ class ACCOUNTS
             return
             [
                 "status" => false,
-                "string" => "Changing to the same password is not available.",
+                "string" => "Changing to the same password is not available, sorry.",
             ];
         }
 
@@ -860,7 +875,6 @@ class ACCOUNTS
         // User
         $ROW = DB::queryFirstRow("SELECT * FROM accounts WHERE username=%s", $USERNAME);
 
-        // User valid?
         if ($ROW == null)
         {
             return
@@ -884,6 +898,8 @@ class ACCOUNTS
 
         // Get the array with all of the hashed data
         $HASHED_ARRAY = $OTHER_MANAGER->generate_encrypted($NEW);
+
+        // Password
         $HASHED_PASSWORD = $HASHED_ARRAY['data'];
 
         // Base64
@@ -1146,7 +1162,19 @@ class ACCOUNTS
                 "string" => "The entered password is incorrect.",
             ];
         }
-        
+
+        // User verified?
+        $VERIFIED = $this->has_verified_email($USERNAME);
+
+        if ($VERIFIED == false)
+        {
+            return
+            [
+                "status" => false,
+                "string" => "This account has an unverified email.",
+            ];
+        }
+
         // Monero
         if ($METHOD == "monero")
         {
