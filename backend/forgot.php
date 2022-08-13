@@ -24,7 +24,7 @@ $ATTEMPT = $ACCOUNT_MANAGER->attempt_reset($EMAIL);
 if ($ATTEMPT['status'] == true)
 {
     // Congratulations
-    echo "Reset request successfully sent, redirecting you to the dashboard in 5 seconds.";
+    echo "Reset request has been successfully sent to your email, redirecting you to the dashboard in 5 seconds.";
 
     // Redirect
     header("Refresh:5; url=/account");

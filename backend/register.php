@@ -31,7 +31,7 @@ $ATTEMPT = $ACCOUNT_MANAGER->attempt_registration($USERNAME, $PASSWORD, $EMAIL);
 if ($ATTEMPT['status'] == true)
 {
     // Congratulations
-    echo "You have successfully registered an account, look into your email inbox for a verification link, redirecting to the dashboard in 5 seconds.";
+    echo "You have successfully registered an account, look into your email inbox for an account verification link, redirecting to the dashboard in 5 seconds.";
 
     // Redirect
     header("Refresh:5; url=/account");

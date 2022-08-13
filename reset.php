@@ -104,7 +104,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'])
     <div class="g-recaptcha mb-2" data-sitekey="6Lfkh34eAAAAAI3fSfOaVIkZTFM0VChDaP-qfo7c"></div>  
     
     <div class="alert alert-info" role="alert">
-      You can send a request each <strong>60 seconds</strong>.
+      You can send a request for a certain email only each <strong>60 seconds</strong>.
     </div>
 
     <button class="btn btn-dark btn-lg mb-3" type="submit">Reset password</button>
