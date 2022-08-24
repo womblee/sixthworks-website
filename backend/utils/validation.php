@@ -10,26 +10,25 @@ class INPUT_VALIDATION
   
     return $DATA;
   }
+  
+  function validate($REGEX, $STR)
+  {
+    return preg_match($REGEX, $STR) === 1 ? true : false;
+  }
 
   function username($STR)
   {
-    $REGEX = "/^[a-z0-9_-]{6,30}$/";
-  
-    return preg_match($REGEX, $STR) === 1 ? true : false;
+    return $this->validate("/^[a-z0-9_-]{6,30}$/", $STR);
   }
     
   function password($STR)
   {
-    $REGEX = "/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,128}$/"; 
-  
-    return preg_match($REGEX, $STR) === 1 ? true : false;
+    return $this->validate("/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,128}$/", $STR);
   }
 
   function email($STR)
   {
-    $REGEX = "/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$/";
-
-    return preg_match($REGEX, $STR) === 1 ? true : false;
+    return $this->validate("/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$/", $STR);
   }
 }
 
