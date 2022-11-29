@@ -1230,7 +1230,7 @@ class ACCOUNTS
             ];
         }
     }
-
+    
     function attempt_redeem($USERNAME, $PASSWORD, $GAME, $KEY)
     {
         // Import data

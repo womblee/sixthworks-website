@@ -14,6 +14,13 @@ CREATE TABLE accounts (
   moderator INT DEFAULT 0
 );
 
+CREATE TABLE secrets (
+  secret TEXT,
+  user TEXT,
+  game TEXT,
+  time INT DEFAULT 0
+);
+
 CREATE TABLE email_verification (
   email TEXT,
   code TEXT,

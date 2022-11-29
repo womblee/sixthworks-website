@@ -18,7 +18,6 @@ $MENU_DATA =
             "file_info" =>
             [
                 "process" => "GTA5.exe",
-                "name" => "release_gta.dll",
                 "type" => "dll",
             ],
 
@@ -27,26 +26,9 @@ $MENU_DATA =
     ],
 ];
 
-$CRC_DATA =
+$PHRASE_DATA =
 [
-    "launcher" =>
-    [
-        "TRPC" => 0x4BF,
-        "CVR" => 0x27DF,
-        "CDR" => 0x27DF,
-        "GA" => 0x68BF,
-        "ISFN" => 0x4BF,
-        "IC" => 0x7E5F,
-        "CSTR" => 0x7E5F,
-        "CHE" => 0x68BF,
-        "WB" => 0x27DF,
-        "GG" => 0x909F
-    ]
-];
-
-$VALIDATION_DATA =
-[
-    "launcher" => "0.0.1"
+    "launcher" => "FullMonster"
 ];
 
 $VERSION_DATA =

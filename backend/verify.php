@@ -19,6 +19,7 @@ $GAME = (isset($_GET['game']) ? $VALIDATION_MANAGER->test_input($_GET['game']) :
 $ARRAY =
 [
     "status" => "fail",
+    "secret" => "none",
     "error" => "",
 ];
 
@@ -78,7 +79,51 @@ if (array_key_exists($GAME, $GAMES))
     // Has one?
     if ($HAS['status'] == true)
     {
+        // Gift a user some random key thingy
+        $KEY = "none";
+        {
+            // Current time
+            $NOW = time();
+    
+            // Size for generation
+            $SIZE = 36;
+    
+            // Unique secret
+            $KEY = $OTHER_MANAGER->random_string($SIZE);
+    
+            // Validate
+            while (true)
+            {
+                // Rows
+                $QUERY = DB::query("SELECT * FROM secrets WHERE secret=%s", $KEY);
+    
+                // Generate again
+                if (count($QUERY) > 0)
+                {
+                    $KEY = $OTHER_MANAGER->random_string($SIZE);
+                }
+                else
+                {
+                    break;
+                }
+            }
+    
+            // Row
+            $INSERT =
+            [
+                'secret' => $KEY,
+                'user' => $USERNAME,
+                'game' => $GAME,
+                'time' => $NOW,
+            ];
+        
+            // Insert
+            $STATUS = DB::insert('secrets', $INSERT);
+        }
+
+        // Give out
         $ARRAY['status'] = "success";
+        $ARRAY['secret'] = $KEY;
         $ARRAY['error'] = "";
     }
     else

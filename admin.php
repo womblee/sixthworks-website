@@ -76,7 +76,7 @@ if ($ROW == null)
 $ADMIN = $ROW['moderator'];
 
 // Is moderator?
-if (empty($ADMIN) == true || $ADMIN == 0)
+if (empty($ADMIN) === true || $ADMIN == 0)
 {
     die($ERROR);
 }
