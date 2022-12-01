@@ -89,7 +89,7 @@ if (array_key_exists($GAME, $GAMES))
             $SIZE = 36;
     
             // Unique secret
-            $KEY = $OTHER_MANAGER->random_string($SIZE);
+            $KEY = strtoupper($OTHER_MANAGER->random_string($SIZE));
     
             // Validate
             while (true)
@@ -100,7 +100,7 @@ if (array_key_exists($GAME, $GAMES))
                 // Generate again
                 if (count($QUERY) > 0)
                 {
-                    $KEY = $OTHER_MANAGER->random_string($SIZE);
+                    $KEY = strtoupper($OTHER_MANAGER->random_string($SIZE));
                 }
                 else
                 {
